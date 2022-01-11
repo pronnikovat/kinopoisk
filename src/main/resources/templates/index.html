@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+    <title>Movies Rating</title>
+    <style>
+        table {
+            border-collapse: collapse;
+        }
+        td, th {padding-left: 10px; padding-right: 10px; border: 1px solid black;}
+        td:first-child {border-left: 1px solid black}
+        td:last-child {border-right: 1px solid black}
+        td:first-child {text-align: center}
+        form {
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+<label for="date">Выберите дату выборки</label>
+<form th:action="@{/movies}">
+    <input id="date" type="date" th:name="date" th:value="${date}">
+    <button type="submit">Принять</button>
+</form>
+<table>
+    <thead>
+    <tr>
+        <th>Позиция</th>
+        <th>Рейтинг</th>
+        <th>Название</th>
+        <th>Год</th>
+        <th>Голоса</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:if="${moviesList.size()>0}" th:each="item: ${moviesList}">
+        <td th:text="${item.position}"></td>
+        <td th:text="${item.rating}"></td>
+        <td th:text="${item.name}"></td>
+        <td th:text="${item.year}"></td>
+        <td th:text="${item.votes}"></td>
+    </tr>
+    <tr th:if="${moviesList.size()==0}">
+        <td colspan="5">Нет записей на выбранную дату</td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>
